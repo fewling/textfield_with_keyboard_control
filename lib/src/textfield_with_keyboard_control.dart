@@ -145,7 +145,8 @@ class _TextFieldWithKeyboardControlState extends State<TextFieldWithKeyboardCont
     final suffixIcon = IconButton(
       isSelected: showKeyboard,
       icon: widget.keyboardIcon ?? const Icon(Icons.keyboard_alt_outlined),
-      selectedIcon: widget.selectedKeyboardIcon ?? Icon(Icons.keyboard_hide_outlined, color: colorScheme.primary),
+      selectedIcon: widget.selectedKeyboardIcon ??
+          Icon(Icons.keyboard_hide_outlined, color: colorScheme.primary),
       onPressed: () => toggleShowKeyboard(showKeyboard),
     );
 
@@ -154,7 +155,7 @@ class _TextFieldWithKeyboardControlState extends State<TextFieldWithKeyboardCont
           border: const OutlineInputBorder(),
           focusColor: colorScheme.primary,
           floatingLabelBehavior: FloatingLabelBehavior.auto,
-          suffixIcon: showKeyboard ? suffixIcon : null,
+          suffixIcon: widget.showKeyboardIcon ? suffixIcon : null,
         );
 
     return InkWell(
