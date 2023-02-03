@@ -11,6 +11,7 @@ class TextFieldWithKeyboardControl extends StatefulWidget {
     super.key,
     required this.focusNode,
     required this.controller,
+    this.showKeyboardIcon = true,
     this.inputTextStyle,
     this.obscuringCharacter = '•',
     this.obscureText = false,
@@ -25,8 +26,8 @@ class TextFieldWithKeyboardControl extends StatefulWidget {
     this.onSubmitted,
     this.onChanged,
     this.onEditingComplete,
-    this.suffixIcon,
-    this.selectedSuffixIcon,
+    this.keyboardIcon,
+    this.selectedKeyboardIcon,
     this.onDoubleTap,
     this.onLongPress,
     this.onTapDown,
@@ -48,6 +49,7 @@ class TextFieldWithKeyboardControl extends StatefulWidget {
 
   /// TextField Properties
   final bool startShowKeyboard;
+  final bool showKeyboardIcon;
   final NoKeyboardFocusNode focusNode;
   final void Function(String value)? onChanged;
   final void Function()? onEditingComplete;
@@ -58,8 +60,8 @@ class TextFieldWithKeyboardControl extends StatefulWidget {
   final bool obscureText;
   final bool autofocus;
   final InputDecoration? inputDecoration;
-  final Widget? suffixIcon;
-  final Widget? selectedSuffixIcon;
+  final Widget? keyboardIcon;
+  final Widget? selectedKeyboardIcon;
   final TextAlign textAlign;
   final TextDirection? textDirection;
   final int? maxLines;
@@ -142,9 +144,8 @@ class _TextFieldWithKeyboardControlState extends State<TextFieldWithKeyboardCont
 
     final suffixIcon = IconButton(
       isSelected: showKeyboard,
-      icon: widget.suffixIcon ?? const Icon(Icons.keyboard_alt_outlined),
-      selectedIcon: widget.selectedSuffixIcon ??
-          Icon(Icons.keyboard_hide_outlined, color: colorScheme.primary),
+      icon: widget.keyboardIcon ?? const Icon(Icons.keyboard_alt_outlined),
+      selectedIcon: widget.selectedKeyboardIcon ?? Icon(Icons.keyboard_hide_outlined, color: colorScheme.primary),
       onPressed: () => toggleShowKeyboard(showKeyboard),
     );
 
@@ -153,7 +154,7 @@ class _TextFieldWithKeyboardControlState extends State<TextFieldWithKeyboardCont
           border: const OutlineInputBorder(),
           focusColor: colorScheme.primary,
           floatingLabelBehavior: FloatingLabelBehavior.auto,
-          suffixIcon: suffixIcon,
+          suffixIcon: showKeyboard ? suffixIcon : null,
         );
 
     return InkWell(
